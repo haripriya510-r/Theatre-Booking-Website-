@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Seat Selection sample</title>
+        <link rel="icon" type="image/x-icon" href="seat_1f4ba.png">
+        <style>
+            body {
+                font-family: Arial;
+                background: #111;
+                color: white;
+                text-align: center;
+            }
+            .section {
+                position: relative;
+                margin: 25px auto;
+                padding: 15px 10px;
+                border-radius: 10px;
+                width:100%;
+                
+            }
+
+            .section.normal {
+                background:purple;
+            }
+
+            .section.premium {
+                background:rgb(221, 220, 220);
+            }
+
+            .section.vip {
+                background:gold;
+            }
+            .section-label {
+                position: absolute;
+                left: -50px;
+                top: 50%;
+                transform: translateY(-50%) rotate(-90deg);
+                font-weight: bold;
+                font-size: 14px;
+                color:white;
+                letter-spacing: 2px;
+            }
+
+            h2 {
+                margin-top: 20px;
+            }
+            .screen{
+                background:blueviolet;
+                height: 70px;
+                margin: 20px auto;
+                width: 80%;
+                border-radius: 10px;
+                color:black;
+                line-height: 70px;
+                font-weight: bold;
+            }
+            .container{
+                margin: 20px auto;
+                width:700px;
+                padding-left: 50px;
+            }
+            .seats{
+                width: 40px;
+                height: 40px;
+                margin: 3px;
+                background:whitesmoke;
+                color:black;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .row{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin:4px;
+            }
+            .row-label{
+                width: 20px;
+                margin-right: 5px;
+                font-weight:bolder;
+                font-size: larger;
+
+            }
+            .seats.selected{
+                background: #0ae736;
+            }
+            .seats.booked{
+                background:grey;
+                color:white;
+                cursor:not-allowed;
+            }
+            .gap{
+                width: 25px;
+            }
+            .section-gap{
+                height: 25px;
+            }
+            .info{
+                margin-top: 50px;
+                background:blue;
+                font-family: 'Courier New', Courier, monospace;
+                margin-left: 500px;
+                margin-right: 500px;
+            }
+            button{
+                color: white;
+                font-weight: bolder;
+                margin-top: 15px;
+                padding: 10px 20px;
+                background: #e50914;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Select your seats</h2>
+        <div class="screen">SCREEN</div>
+        <div class="container" id="seatContainer"></div>
+        <div class="info">
+            <p>No of seats:<span id="count">0</span></p>
+            <p>Seats selected:<span id="slist">None</span></p>
+            <p>Total Price:<span id="total">0</span></p>
+        </div>
+        <button onclick="saveseats()" id="btn">BOOK NOW</button>
+        <script>
+            let selectedseatnames=[];
+            let totalAmount=0;
+            const seats=document.getElementById("seatContainer");
+            const seatnum=document.getElementById("count");
+            const total=document.getElementById("total");
+            const seatList=document.getElementById("slist");
+            const prices={
+                normal:220,
+                premium:350,
+                vip:500
+            };
+            const rowNames="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            let rowIndex=0;
+            function createRow(left,right,type){
+                const rows=document.createElement("div");
+                rows.classList.add("row");
+                const rowName=rowNames[rowIndex++];
+                const label=document.createElement("div");
+                label.classList.add("row-label");
+                label.innerText = rowName;
+                rows.appendChild(label);
+                let seatNumber=1;
+                for(let i=0; i<left;i++){
+                    rows.appendChild(createseat(rowName,seatNumber++,type));
+                }
+                const gap=document.createElement("div");
+                gap.classList.add("gap");
+                rows.appendChild(gap);
+                 for (let i = 0; i < right; i++) {
+                    rows.appendChild(createseat(rowName, seatNumber++,type));
+                }
+                return rows;
+            }
+            function createSection(type,rows,left,right)
+            {
+                const section = document.createElement("div");
+                section.classList.add("section", type);
+                const label = document.createElement("div");
+                label.classList.add("section-label");
+                label.innerText = type.toUpperCase();
+                section.appendChild(label);
+                for (let i = 0; i < rows; i++) {
+                    const rowDiv = createRow(left, right, type);
+                    section.appendChild(rowDiv);
+                }
+                seats.appendChild(section);
+            }
+            function createSectionGap() {
+                const gap = document.createElement("div");
+                gap.classList.add("section-gap");
+                seats.appendChild(gap);
+            }
+            function createseat(row,num,type){
+                const s=document.createElement("div");
+                s.classList.add("seats");
+                const sId=row + num;
+                s.innerText=num;
+                s.setAttribute("data-seat",sId);
+                s.setAttribute("data-type",type);
+                s.setAttribute("data-price",prices[type]);
+                if(Math.random()<0.3){
+                    s.classList.add("booked");
+                }
+                return s;
+            }
+            createSection("normal", 2, 7, 7);
+            createSection("premium", 8, 6, 6);
+            createSection("vip", 3, 7, 7);
+            seats.addEventListener("click", (e) => {
+            if (
+                e.target.classList.contains("seats") &&
+                !e.target.classList.contains("booked")
+            ) {
+                e.target.classList.toggle("selected");
+                updateSelection();
+            }
+            });
+            function updateSelection() {
+                const selectedSeats = document.querySelectorAll(".seats.selected");
+                seatnum.innerText = selectedSeats.length;
+                totalAmount=0;
+                selectedseatnames = [];
+                selectedSeats.forEach(seat => {
+                    totalAmount+=parseInt(seat.getAttribute("data-price"));
+                    selectedseatnames.push(seat.getAttribute("data-seat"));
+                });
+                total.innerText=totalAmount;
+                seatList.innerText = selectedseatnames.length ? selectedseatnames.join(", ") : "None";
+            }
+            function saveseats() {
+                if(selectedseatnames.length === 0){
+                    alert("Please select at least one seat!");
+                    return;
+                }
+                localStorage.setItem("selectedSeats", JSON.stringify(selectedseatnames));
+                localStorage.setItem("totalPrice", totalAmount);
+                window.location.href = "payment.html";
+            }
+        </script>
+    </body>
+</html>

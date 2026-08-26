@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineBook</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #121212;
+    color: white;
+}
+
+/* NAVBAR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1f26;
+    padding: 15px 30px;
+}
+
+.title {
+    color: blueviolet;
+}
+
+.navigation {
+    display: flex;
+    list-style: none;
+}
+
+.navigation li {
+    margin: 0 15px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navigation a:hover {
+    color: blueviolet;
+}
+
+.navigation a.active {
+    color: blueviolet;
+    border-bottom: 2px solid blueviolet;
+}
+
+/* SLIDER */
+.section-title {
+    text-align: center;
+    margin: 20px;
+    color: blueviolet;
+}
+
+.slider {
+    position: relative;
+    width: 90%;
+    height: 420px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(15px);
+    transform: scale(1.1);
+}
+
+.slide .main {
+    position: relative;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(0,0,0,0.6);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* MOVIES */
+.current-movies {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.current-movie {
+    background: #1e1f26;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.current-movie:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(138,43,226,0.6);
+}
+
+.current-movie img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn-1 {
+    margin-top: 10px;
+    background: blueviolet;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background: #1e1f26;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    animation: pop 0.3s ease;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@keyframes pop {
+    from {transform: scale(0.7); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="top-bar">
+    <h2 class="title">CineBook</h2>
+    <ul class="navigation">
+        <li><a onclick="filterMovies('all')" class="active">All</a></li>
+        <li><a onclick="filterMovies('horror')">Horror</a></li>
+        <li><a onclick="filterMovies('love')">love</a></li>
+        <li><a onclick="filterMovies('comedy')">Comedy</a></li>
+        <li><a onclick="filterMovies('fantasy')">Fantasy</a></li>
+    </ul>
+</div>
+
+<h2 class="section-title">Now Showing</h2>
+
+<!-- SLIDER -->
+<!-- SLIDER -->
+<div class="slider" style="cursor:pointer;">
+    <div class="slide active" onclick="window.location.href='duran.html'">
+        <img src="bg4_dhurandhar.jpg" class="bg">
+        <img src="bg4_dhurandhar.jpg" class="main">
+        <div class="slide-content"><h1>Dhurandhar</h1></div>
+    </div>
+
+    <div class="slide" onclick="window.location.href='court.html'">
+        <img src="courtpic.jpg" class="bg">
+        <img src="courtpic.jpg" class="main">
+        <div class="slide-content"><h1>Court</h1></div>
+    </div>
+
+    <div class="slide" onclick="window.location.href='lik.html'">
+        <img src="lilpic.avif" class="bg">
+        <img src="lilpic.avif" class="main">
+        <div class="slide-content"><h1>Life Insurance</h1>
+            <h1>Company</h1></div>
+    </div>
+
+    <div class="slide" onclick="window.location.href='project5.html'">
+        <img src="youthmovie.jpg" class="bg">
+        <img src="youthmovie.jpg" class="main">
+        <div class="slide-content"><h1>Youth</h1></div>
+    </div>
+
+    <div class="slide" onclick="window.location.href='tera.html'">
+        <img src="terepic.png" class="bg">
+        <img src="terepic.png" class="main">
+        <div class="slide-content"><h1>Tere Ishk Main</h1></div>
+    </div>
+</div>
+<!-- MOVIES -->
+<div class="current-movies">
+
+<!-- ROMANTIC -->
+<div class="current-movie" data-category="love" onclick="openModal(this)">
+<img src="terepic.png"><h3>Tere Ishq Mein</h3></div>
+
+<div class="current-movie" data-category="love" onclick="openModal(this)">
+<img src="with love.webp"><h3>With Love</h3></div>
+
+<div class="current-movie" data-category="love" onclick="openModal(this)">
+<img src="joe.jpg"><h3>Joe</h3></div>
+
+<!-- HORROR -->
+<div class="current-movie" data-category="horror" onclick="openModal(this)">
+<img src="conjuring.avif"><h3>conjuring</h3></div>
+
+<div class="current-movie" data-category="horror" onclick="openModal(this)">
+<img src="nun.webp"><h3>Nun</h3></div>
+
+<div class="current-movie" data-category="horror" onclick="openModal(this)">
+<img src="pennywise.jpg"><h3>Pennywise</h3></div>
+
+<!-- COMEDY -->
+<div class="current-movie" data-category="comedy" onclick="openModal(this)">
+<img src="nanban.jpg"><h3>nanban</h3></div>
+
+<div class="current-movie" data-category="comedy" onclick="openModal(this)">
+<img src="comali.jpg"><h3>comali</h3></div>
+
+<div class="current-movie" data-category="comedy" onclick="openModal(this)">
+<img src="guru.webp"><h3>Guruvayoor Ambalanadayil </div>
+
+<!-- FANTASY -->
+<div class="current-movie" data-category="fantasy" onclick="openModal(this)">
+<img src="spiderman.avif"><h3>spiderman</h3></div>
+
+<div class="current-movie" data-category="fantasy" onclick="openModal(this)">
+<img src="frozen.jpg"><h3>Frozen</h3></div>
+
+<div class="current-movie" data-category="fantasy" onclick="openModal(this)">
+<img src="avengers.webp"><h3>Avengers</h3></div>
+
+</div>
+
+<!-- MODAL -->
+<div id="movieModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImg">
+        <h2 id="modalTitle"></h2>
+        <p id="modalPrice"></p>
+        <button class="btn-1">Book Now</button>
+    </div>
+</div>
+
+<script>
+let slides=document.querySelectorAll(".slide"),index=0;
+function showSlide(i){slides.forEach(s=>s.classList.remove("active"));slides[i].classList.add("active")}
+function nextSlide(){index=(index+1)%slides.length;showSlide(index)}
+setInterval(nextSlide,3000);
+
+function filterMovies(category){
+let movies=document.querySelectorAll(".current-movie");
+let links=document.querySelectorAll(".navigation a");
+links.forEach(l=>l.classList.remove("active"));
+event.target.classList.add("active");
+movies.forEach(m=>{
+m.style.display=(category==="all"||m.dataset.category===category)?"block":"none";
+});
+}
+
+function openModal(movie){
+document.getElementById("movieModal").style.display="block";
+document.getElementById("modalImg").src=movie.querySelector("img").src;
+document.getElementById("modalTitle").innerText=movie.querySelector("h3").innerText;
+document.getElementById("modalPrice").innerText=movie.querySelector("p").innerText;
+}
+
+function closeModal(){
+document.getElementById("movieModal").style.display="none";
+}
+
+window.onclick=function(e){
+if(e.target==document.getElementById("movieModal")){
+document.getElementById("movieModal").style.display="none";
+}};
+</script>
+
+</body>
+</html>
