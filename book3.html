@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Booking UI</title>
+
+<style>
+/* Reset & Base Styles */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+  background: #0a0a0a;
+  color:white;
+  min-height:100vh;
+}
+
+/* TOP HEADER NAVIGATION (Inspired by nav.jpg) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: #111;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-section b {
+  font-size: 22px;
+  color: #ff004c;
+}
+
+.location-tag {
+  font-size: 14px;
+  color: #aaa;
+  background: #222;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ff004c;
+}
+
+.search-box {
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: white;
+  width: 280px;
+  outline: none;
+}
+
+.search-box:focus {
+  border-color: #ff004c;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.container{
+  width: 900px;
+  background:rgb(43, 42, 42);
+  border-radius: 20px;
+  padding: 35px;
+  display: flex;
+  gap: 40px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+  
+}
+
+.left-poster{
+  width: 340px;
+}
+
+.left-poster img{
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.right-details{
+  flex: 1;
+}
+
+h2{
+  font-size: 32px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* DATE CALENDAR */
+.calendar{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin-bottom: 25px;
+  padding-bottom: 5px;
+  scrollbar-width: none;
+}
+
+.calendar::-webkit-scrollbar { display: none; }
+
+.calendar button{
+  min-width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 14px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.calendar button span { font-size: 22px; font-weight: bold; }
+.calendar button small { color: #888; margin-top: 4px; }
+
+/* SECTIONS */
+.section-title {
+  color: #777;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.options-grid {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.options-grid button {
+  padding: 14px 22px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.active {
+  background: linear-gradient(45deg, #ff004c, #ff512f) !important;
+  box-shadow: 0 6px 20px rgba(255, 0, 76, 0.4);
+}
+
+/* BOOKING SUMMARY BOX */
+.booking-summary {
+  width: 100%;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+  padding: 25px;
+  margin-top: 10px;
+  min-height: 80px;
+}
+
+.price-tag {
+  color: #00ffae;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.badge {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-top: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.green { background: rgba(0, 184, 148, 0.15); color: #00b894; border: 1px solid #00b894; }
+.red { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid #e74c3c; }
+
+.book-now-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #ff004c, #ff512f);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 0, 76, 0.3);
+}
+
+.book-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 0, 76, 0.5);
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAVIGATION BAR -->
+<header>
+  <div class="logo-section">
+    <b>🎟️ TicketNew</b>
+    <span class="location-tag">Nagercoil</span>
+  </div>
+
+  <nav class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Movies</a>
+    <a href="#">Theatres</a>
+    <a href="#">Orders</a>
+  </nav>
+
+  <input type="text" class="search-box" placeholder="Search for movies...">
+</header>
+
+<div class="main-content">
+  <div class="container">
+    <!-- MOVIE POSTER -->
+    <div class="left-poster">
+      <img src="lik1.jpg" alt="Love Insurance Kompany">
+    </div>
+
+    <!-- BOOKING DETAILS -->
+    <div class="right-details">
+      <h2>🎬 Movie Booking</h2>
+
+      <div class="section-title">Select Date</div>
+      <div class="calendar">
+        <button onclick="setActive(this)"><span>2</span><small>Sat</small></button>
+        <button onclick="setActive(this)"><span>3</span><small>Sun</small></button>
+        <button onclick="setActive(this)"><span>4</span><small>Mon</small></button>
+        <button onclick="setActive(this)"><span>5</span><small>Tue</small></button>
+        <button onclick="setActive(this)"><span>6</span><small>Wed</small></button>
+        <button onclick="setActive(this)"><span>7</span><small>Thu</small></button>
+      </div>
+
+      <div class="section-title">Available Sessions</div>
+      <div class="options-grid">
+        <button onclick="selectSession(this,'9AM - 12PM')">09:00 AM</button>
+        <button onclick="selectSession(this,'12PM - 3PM')">12:00 PM</button>
+        <button onclick="selectSession(this,'6PM - 9PM')">06:00 PM</button>
+      </div>
+
+      <div class="section-title">Seat Type</div>
+      <div class="options-grid">
+        <button onclick="showSeat(this,'Premium',350,50)">Premium</button>
+        <button onclick="showSeat(this,'Normal',220,18)">Normal</button>
+        <button onclick="showSeat(this,'VIP',500,8)">VIP</button>
+      </div>
+
+      <!-- DYNAMIC RESULT SECTION -->
+      <div class="booking-summary" id="result">
+        <p style="color:#555; text-align:center; padding-top:10px;">Select date, session and seat type to book.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedSession = "";
+let selectedDate="";
+
+function removeActive(parent){
+  let buttons = parent.querySelectorAll("button");
+  buttons.forEach(btn => btn.classList.remove("active"));
+}
+
+function setActive(btn){
+  removeActive(btn.parentElement);
+  btn.classList.add("active");
+  if(btn.parentElement.classList.contains("calendar")){
+    let dateVal=btn.querySelector("span").innerText;
+    let dayVal=btn.querySelector("small").innerText;
+    selectedDate=dateVal+""+dayVal;
+  }
+}
+
+function selectSession(btn, session){
+  selectedSession = session;
+  removeActive(btn.parentElement);
+  btn.classList.add("active");
+  document.getElementById("result").innerHTML = `<p style="color:#aaa; text-align:center;">Great! Now select your preferred <b>Seat Type</b>.</p>`;
+}
+
+function showSeat(btn, type, price, seats){
+  if(!selectedSession) {
+    alert("Please select a session timing first!");
+    return;
+   if(!selectedDate){
+      alert("please select date first");
+      return;
+    }
+  }
+  removeActive(btn.parentElement);
+  btn.classList.add("active");
+
+  let statusClass = seats > 10 ? "green" : "red";
+  let statusText = seats > 10 ? "Available" : "Filling Fast";
+
+  // Dynamic booking UI update
+  document.getElementById("result").innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <p style="font-size:18px;"><b>${type} Class</b></p>
+        <p style="color:#aaa;font-size:14px;margin-top:4px;">Date:${selectedDate}</p>
+        <p style="color:#aaa; font-size:14px; margin-top:4px;">Timing: ${selectedSession}</p>
+        <span class="badge ${statusClass}">${statusText} (${seats} seats left)</span>
+      </div>
+      <div style="text-align:right;">
+        <p style="color:#aaa; font-size:12px;">Price</p>
+        <div class="price-tag">₹${price}</div>
+      </div>
+    </div>
+    <button class="book-now-btn" onclick="goToSeats('${type}', ${price})">
+      BOOK TICKETS NOW
+    </button>
+  `;
+}
+function goToSeats(type, price){
+  if(!selectedSession || !selectedDate){
+    alert("Complete selection first!");
+    return;
+  }
+  let movieName=document.querySelector(".left-poster img").alt;
+  // Store data
+  localStorage.setItem("movieName",movieName); // you can make this dynamic later
+  localStorage.setItem("movieDate", selectedDate);
+  localStorage.setItem("movieTime", selectedSession);
+  localStorage.setItem("seatType", type);
+  localStorage.setItem("price", price);
+
+  // Go to next page
+  window.location.href = "seats.html";
+}
+</script>
+
+</body>
+</html>

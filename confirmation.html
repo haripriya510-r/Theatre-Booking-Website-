@@ -1,0 +1,83 @@
+<html>
+<head>
+
+<style>
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  margin: 0;
+  padding: 0;
+}
+
+#summary {
+  width: 350px;
+  margin: 100px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+#summary h2 {
+  color: blueviolet;
+  margin-bottom: 15px;
+}
+
+#summary p {
+  font-size: 16px;
+  margin: 8px 0;
+  color: #333;
+}
+
+#summary p:last-child {
+  font-weight: bold;
+  color: green;
+  font-size: 18px;
+}
+
+/* Optional: Confirmation icon style */
+#summary::before {
+  content: "✔";
+  display: block;
+  font-size: 40px;
+  color: green;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+<div id="summary"></div>
+<script>
+let movieName = localStorage.getItem("movieName");
+let date = localStorage.getItem("movieDate");
+let time = localStorage.getItem("movieTime");
+let seatType = localStorage.getItem("seatType");
+let price = localStorage.getItem("totalPrice");
+let seats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+document.getElementById("summary").innerHTML = `
+  <h2>${movieName}</h2>
+  <p>Date: ${date}</p>
+  <p>Time: ${time}</p>
+  <p>Seat Type: ${seatType}</p>
+  <p>Seats: ${seats.join(", ")}</p>
+  <p>Total Price: ₹${price}</p>
+`;
+</script>
+</body>
+
+</html>
+
+

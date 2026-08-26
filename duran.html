@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details - Full Layout</title>
+    <style>
+        /* Base Styles */
+    .my{
+        display: inline-block;
+     }
+     header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 30px;
+  border-bottom:1px solid rgba(0,234,255,.2);
+  flex-wrap:wrap;
+  gap:12px;
+  font-size:20px;
+}
+
+.logo,.nav{
+  display:flex;
+  gap:22px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.logo b{color:white;}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+}
+
+.search{
+  padding:10px 14px;
+  border-radius:25px;
+  border:1px solid #00eaff;
+  background:#111;
+  color:#fff;
+}
+        body {
+            background-color:rgb(29, 28, 28); /* Dark background from pic 3 */
+            color:white;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+           
+        }
+
+        /* 1. Hero Section (Image 1 Style + Image 3 Colors) */
+        .hero-section {
+            position: relative;
+            padding: 60px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right,rgb(0 0 0),rgb(0 0 0 )), 
+                        url('ch.jpg'); /* Using your file name ch.jpg */
+            background-size: cover;
+            background-position: center;
+            min-height: 20px;
+             background-image:url("dur.jpg");
+           
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .movie-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: white; /* Neon Cyan from Image 3 */
+            margin: 0;
+            text-transform: capitalize;
+        }
+
+        .meta-info {
+            font-size: 18px;
+            color:white;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 16px;
+            color: white;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+
+        .tags span {
+            background: rgba(253, 247, 247, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 10px;
+            border: 1px solid #444;
+        }
+
+        .book-btn {
+            background-color:white;
+            color:black;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background-color: red;
+            transform: scale(1.05);
+        }
+
+        .container{
+            width:700px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 251, 255, 0.3);
+            position:relative;
+            box-shadow:0 0 20px 10px rgba(255,255,255,0.7)
+        }
+        .container video{
+            width:100%;
+            display:block;
+            border-radius:10px;
+        }
+        .container button{
+            position:absolute;
+            bottom:15px;
+            left:50%;
+            transform:translateX(-50%);
+            background-color: rgb(75, 71, 71);
+            color:#eee;
+            border:none;
+            padding:10px 22px;
+            border-radius: 8px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        .container button :hover{
+            background:#222;
+        }
+
+        /* 2. Ratings Section (Image 2 Style) */
+        .ratings-section {
+            padding: 40px 5%;
+            background-color:black;
+        }
+
+        .ratings-header {
+            font-size: 24px;
+            margin-bottom: 30px;
+            border-left: 4px solid white;
+            padding-left: 15px;
+        }
+
+        .ratings-container {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+
+        .rating-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 220px;
+        }
+
+        .source-logo {
+            width: 100px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .source-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .rating-info strong {
+            display: block;
+            font-size: 22px;
+        }
+
+        .rating-info span {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Scrollbar styling */
+        .ratings-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .ratings-container::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        .line{
+            display:inline-block;
+            border-radius: 50%;
+            width:90px;
+            height:90px;
+            margin:30px;
+        }
+        #cas{
+            margin-left:30px;
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+  <div class="logo">🎟️ <b>TicketNew</b> <span>Nagercoil</span></div>
+
+  <nav class="nav">
+    <a href="#">Home</a>
+    <a href="#">Movies</a>
+    <a href="#">Theatres</a>
+    <a href="#">Orders</a>
+  </nav>
+
+  <input class="search" placeholder="Search">
+</header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="movie-title">Dhurandar</h1>
+            <div class="meta-info">UA16+ | Tamil | 2h 41m</div>
+            <p class="description">
+               A passionate defense attorney fights against prejudice and corruption in the justice system while representing a teenage client wrongly presumed guilty of a serious crime.
+            </p>
+            <div class="tags">
+                <span>Action</span>
+                <span>Drama</span>
+            </div>
+            <p style="margin-top: 15px; color: #888;">Released 30 April 2026</p>
+            <button class="book-btn" onclick="window.location.href='book4.html'">Book Tickets</button>
+       </div>
+       <div class="container">
+        <video src="duran.mp4" Poster="d.jpg" controls>
+        <button onclick="video()">Play Trailer</button>
+        </div>
+        
+    </section>
+    <section id="cast">
+        <h1 id="cas" >Cast</h1>
+        <img src="d1.jpg" class="line">
+         <img src="d2.jpg" class="line">
+          <img src="d3.jpg" class="line">
+           <img src="d4.jpg" class="line">
+            <img src="d5.jpg" class="line">
+        
+    </section>
+    <!-- Ratings Section -->
+    <section class="ratings-section">
+        <h2 class="ratings-header">Ratings & Reviews</h2>
+        <div class="ratings-container">
+            <!-- Example Rating 1 -->
+            <div class="rating-card">
+                <div class="source-logo" style="background: #e31e24;">ET</div>
+                <div class="rating-info">        
+                    <h1>rating 4/5</h1>
+                    <p>he concept around POCSO however sensitive, I feel the plot was very much open. By Nani’s words I thought this would be an edge of the seat courtroom drama but man the loophole was right there entire time for Teja to win the case. Be it the pharmacy thing or the room entering footage.I felt how Teja would go about the argument from that clip and it was the same.</p>
+                
+                </div>
+            </div>
+
+            <!-- Example Rating 2 -->
+            <div class="rating-card">
+                <div class="source-logo" style="background: #ffffff; color: #000; font-weight: bold;">IT</div>
+                <div class="rating-info">
+                   <h1>rating 3.5/5</h1>
+                   <p>All actors played their role to perfection. Id rather give a shout out to Shivaji than Priyadarshi.
+
+National award and all is unwanted hype by biased fans, antha cinema Ledu performance wise akkada. I feel a tighter script and more ups and downs would have made this movie much more intense.Anyway this movie is a good one with a 3.5/5 at max.</p>
+                </div>
+            </div>
+            <section id="rev">
+                
+
+            </section>
+
+            <!-- Example Rating 3 -->
+            <div class="rating-card">
+                <div class="source-logo" style="background: #c00;">NX</div>
+                <div class="rating-info">
+                   <h1>rating 4.5/5</h1>
+                   <p>Yeah I would probably not watch it again but I really enjoyed it. I felt like it was a decent courtroom drama that came out of TFI in recent times. Like Vakeel Saab is the last thing I remember and it was shit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+</body>
+</html>
